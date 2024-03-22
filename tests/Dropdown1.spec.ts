@@ -17,8 +17,16 @@ test('dropdown2', async ({page}) => {
     
     await page.selectOption("//select[contains(@class,'basic-multiple')]",[{value: "TX"},{label:"Utah"}])
     
-    var textthis = await page.locator("//span[@class='selection']").nth(1).textContent();
-    console.log(textthis);
-    //expect(textthis == "Australia");
+    var dropdownText = await page.locator("//span[@class='selection']").nth(1).textContent();
+    console.log(dropdownText);
+    expect.soft(dropdownText.includes('Texas')).toBeTruthy;
+    expect.soft(dropdownText.includes('Texas')).toBeTruthy;
+    
+
+    const checkChoices = await dropdownText.split('x');
+    await console.log(checkChoices.length);
+    await expect(checkChoices.length).toEqual(2);
+    
+
     
 })

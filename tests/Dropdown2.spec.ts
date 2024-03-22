@@ -17,6 +17,7 @@ test('practise', async ({page}) => {
     //check all options
     const options = await page.$$('#country option');
     console.log("Number of options: ", options.length);
+    
     var existsMe = false;
     for(const option of options)
     {   
@@ -28,11 +29,25 @@ test('practise', async ({page}) => {
     }
     expect(existsMe).toBeTruthy();
 
+});
+
+test('practiseMulti', async ({page}) => {
+    await page.goto('https://testautomationpractice.blogspot.com/');
+    //page.locator('#colors option').scroll_into_view_if_needed()
+    const optionsCount2 = await page.locator('#colors option').count();
+    //console.log("Number of options: ", optionsCount2.length);
+    expect(optionsCount2).toEqual(5);
+
     await page.selectOption('#colors',['Blue', 'Yellow']);
     await page.waitForTimeout(5000);
+    
+    const colorAvail = await page.locator('#colors').textContent();
+    console.log("colorOptions: ", colorAvail);
 
-    const optionsCount2 = page.locator('#colors option');
-    expect(optionsCount2).toHaveCount(5);
+    //const colorOptions = await page.locator('#colors option').textContent();
+    //console.log("colorOption options: ", colorOptions);
 
-
+    await expect.soft(colorAvail).toContain('Blue'); //only check presense of that value in the dropdown
+    
+    await page.waitForTimeout(1000);
 })
