@@ -11,9 +11,9 @@ test ('journey',async ({page}) => {
     await fromDrop.press('8');
     //await fromDrop.press('2');
 
-    await page.waitForSelector('#txtFrom-list li');
-    const AddressDrops = await page.$$('#txtFrom-list li');
-    //await console.log("options generated AddressDrops: ", AddressDrops);
+    await page.waitForSelector('#txtFrom_listbox');
+    const AddressDrops = await page.$$('#txtFrom_listbox li');
+    await console.log("options generated AddressDrops: ", AddressDrops);
     //#txtFrom-list li
 
     for (let address of AddressDrops) {
@@ -29,7 +29,7 @@ test ('journey',async ({page}) => {
 
     }
     //divTxtFrom
-    const divtextFrom = await page.locator('#divTxtFrom').textContent();
+    const divtextFrom = await page.locator('#txtFrom').textContent();
     //const inputtextFrom = await page.locator('#TxtFrom').textContent();
     console.log("divtextFrom : ", divtextFrom);
     //console.log("inputtextFrom : ", inputtextFrom);
@@ -42,8 +42,8 @@ test ('journey',async ({page}) => {
     await fromDropT.press('6');
     //await fromDropT.press('4');
 
-    await page.waitForSelector('#txtTo-list li');
-    const AddressToDrops = await page.$$('#txtTo-list li');
+    await page.waitForSelector('#txtTo_listbox li');
+    const AddressToDrops = await page.$$('#txtTo_listbox li');
 
     for (let addressT of AddressToDrops) {
         const getconT = await addressT.textContent();
