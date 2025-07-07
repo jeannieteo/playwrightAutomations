@@ -1,5 +1,34 @@
-import {test, expect} from '@playwright/test';
+import {test, expect} from '@playwright/test'
 
+test('dropdown', async ({page}) => {
+    await page.goto("https://www.lambdatest.com/selenium-playground/jquery-dropdown-search-demo");
+    
+    await page.locator("#country").selectOption("Australia");
+    
+    const textthis = await page.locator("#select2-country-container").textContent();
+    console.log(textthis);
+    expect(textthis == "Australia");
+    
+});
+
+
+test('dropdown2', async ({page}) => {
+    await page.goto("https://www.lambdatest.com/selenium-playground/jquery-dropdown-search-demo");
+    
+    await page.selectOption("//select[contains(@class,'basic-multiple')]",[{value: "TX"},{label:"Utah"}])
+    
+    var dropdownText;
+    dropdownText = await page.locator("//span[@class='selection']").nth(1).textContent();
+    expect.soft(dropdownText.includes('Texas')).toBeTruthy;
+    expect.soft(dropdownText.includes('Texas')).toBeTruthy;
+    
+
+    const checkChoices = await dropdownText.split('x');
+    await console.log(checkChoices.length);
+    await expect(checkChoices.length).toEqual(2);
+    
+  
+});
 
 test ('journey',async ({page}) => {
     await page.goto("http://journey.smrt.com.sg/");
@@ -15,9 +44,9 @@ test ('journey',async ({page}) => {
     const AddressDrops = await page.$$('#txtFrom_listbox li');
     await console.log("options generated AddressDrops: ", AddressDrops);
     //#txtFrom-list li
-
+    var getcon;
     for (let address of AddressDrops) {
-        const getcon = await address.textContent();
+        getcon = await address.textContent();
         
         if( getcon.includes('ISTANA'))
         {
@@ -36,10 +65,11 @@ test ('journey',async ({page}) => {
 
     const fromDropT = page.locator('#txtTo');
     await fromDropT.click();
-    await fromDropT.press('8');
-    await fromDropT.press('1');
-    await fromDropT.press('9');
-    await fromDropT.press('6');
+    await fromDropT.type('8196');
+    // await fromDropT.press('8');
+    // await fromDropT.press('1');
+    // await fromDropT.press('9');
+    // await fromDropT.press('6');
     //await fromDropT.press('4');
 
     await page.waitForSelector('#txtTo_listbox li');
